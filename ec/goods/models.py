@@ -8,4 +8,4 @@ class Fruit(models.Model):
     detail = models.CharField(max_length=500)     # 商品詳情
     sold = models.IntegerField(default=0)         # 商品的銷量（重量）
     origin = models.CharField(max_length=50)      # 商品的圖片地址
-
+    is_delete = models.BooleanField(default=False)# 刪除產品
