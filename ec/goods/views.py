@@ -4,6 +4,7 @@ from django.core.paginator import Paginator
 
 
 def index(request):
+
     context = {'title': '首頁', 's': '0'}
     return render(request, 'goods/index.html', context)
 
