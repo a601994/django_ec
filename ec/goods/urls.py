@@ -5,9 +5,6 @@ from . import views
 urlpatterns = [
 
     url(r'^$', views.index),
-    url(r'^fruit/page/(\d*)', views.fruit),
-    url(r'^sort-price-fruit/page/(\d*)', views.sort_price_fruit),
-    url(r'^fruit-detail/(\d+)', views.fruit_detail),
-    url(r'^/$', views.index),
-
+    url(r'^list(\d+)_(\d+)([a-zA-Z_]*)/$', views.list_goods),
+    url(r'^detail_(\d+)_(\d+)/$', views.goods_detail),
 ]

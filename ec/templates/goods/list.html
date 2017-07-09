@@ -2,9 +2,9 @@
 	 {% block body%}
 
 	<div class="breadcrumb">
-		<a href="/goods/">全部分类</a>
+		<a href="/">全部分类</a>
 		<span>></span>
-		<a href="/goods/fruit/page/">新鲜水果</a>
+		<a href="/list{{goods_tpye.id}}_1">{{goods_type.ttitle}}</a>
 	</div>
 
 	<div class="main_wrap clearfix">
@@ -12,55 +12,56 @@
 			<div class="new_goods">
 				<h3>新品推荐</h3>
 				<ul>
+					{%for n in new_goods_list%}
 					<li>
-						<a href="#"><img src="/static/images/goods/goods001.jpg"></a>
-						<h4><a href="#">进口柠檬</a></h4>
-						<div class="prize">￥3.90</div>
+						<a href="/detail_{{n.gtype_id}}_{{n.id}}"><img src="/static/{{n.gpic}}"></a>
+						<h4><a href="/detail_{{n.gtype_id}}_{{n.id}}">{{n.gtitle}}</a></h4>
+						<div class="prize">￥{{n.gprice}}</div>
 					</li>
-					<li>
-						<a href="#"><img src="/static/images/goods/goods002.jpg"></a>
-						<h4><a href="#">玫瑰香葡萄</a></h4>
-						<div class="prize">￥16.80</div>
-					</li>
+					{%endfor%}
 				</ul>
 			</div>
 		</div>
 
 		<div class="r_wrap fr clearfix">
 			<div class="sort_bar">
-				<a href="/goods/fruit/page/" class="active">默认</a>
-				<a href="/goods/sort-price-fruit/page/">价格</a>
-				<a href="#">人气</a>
+				<a href="/list{{goods_type.id}}_{{goods_list.number}}" class="active">默认</a>
+				<a href="/list{{goods_type.id}}_1_sort_price">价格</a>
+				<a href="/list{{goods_type.id}}_1_click">人气</a>
 			</div>
 
 			<ul class="goods_type_list clearfix">
-				{%for fruit in fruit_list %}
+{%for g in goods_list %}
 					<li>
-						<a href="/goods/fruit-detail/{{fruit.id}}"><img src="{{fruit.origin}}"></a>>
-						<h4><a href="/goods/fruit-detail/{{fruit.id}}">{{fruit.name}}</a></h4>
+						<a href="/detail_{{g.gtype_id}}_{{g.id}}"><img src="/static/{{g.gpic}}"></a>>
+						<h4><a href="/detail_{{g.gtype_id}}_{{g.id}}">{{g.gtitle}}</a></h4>
 						<div class="operate">
-							<span class="prize">￥{{fruit.price}}</span>
-							<span class="unit">{{fruit.price}}/500g</span>
+							<span class="prize">￥{{g.gprice}}</span>
+							<span class="unit">{{g.gprice}}/{{g.gunit}}</span>
 							<a href="#" class="add_goods" title="加入购物车"></a>
 						</div>
 					</li>
-				{% endfor %}
+{% endfor %}
 			</ul>
 
 			<div class="pagenation">
-				{%if fruit_list.has_previous %}
-				<a href="/goods/fruit/page/{{pindex|add:-1}}">上一页</a>
+				{%if goods_list.has_previous %}
+				<a href="/list{{goods_type.id}}_{{goods_list.number|add:-1}}">上一页</a>
 				{% endif %}
+				<a href="/list{{goods_type.id}}_1">首頁</a>
 				{% for i in page_list %}
-					{% if i == pindex %}
-					<a href="#" class="active">{{pindex}}</a>
+					{% if i == goods_list.number %}
+					<a href="#" class="active">{{goods_list.number}}</a>
 					{% else %}
-					<a href="/goods/fruit/page/{{i}}">{{i}}</a>
+					<a href="/list{{goods_type.id}}_{{i}}">{{i}}</a>
 					{% endif %}
 				{% endfor %}
-				{%if fruit_list.has_next %}
-				<a href="/goods/fruit/page/{{pindex|add:1}}">下一页</a>
+				<a href="/list{{goods_type.id}}_{{goods_list.paginator.num_pages}}">末頁</a>
+				{%if goods_list.has_next %}
+				<a href="/list{{goods_type.id}}_{{goods_list.number|add:1}}">下一页</a>
 				{% endif %}
+
+
 			</div>
 		</div>
 	</div>
